@@ -3949,7 +3949,7 @@ ZipEntry.prototype = {
             this.extraFields = {};
         }
 
-        while (reader.index < end) {
+        while (reader.index + 4 < end) {
             extraFieldId = reader.readInt(2);
             extraFieldLength = reader.readInt(2);
             extraFieldValue = reader.readData(extraFieldLength);
@@ -3960,6 +3960,8 @@ ZipEntry.prototype = {
                 value: extraFieldValue
             };
         }
+
+        reader.setIndex(end);
     },
     /**
      * Apply an UTF8 transformation if needed.
